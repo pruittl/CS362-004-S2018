@@ -1247,7 +1247,7 @@ int adventurerCard(int player, struct gameState * state)
 int smithyCard(int player, struct gameState * state, int handPos)
 {
     //+3 Cards
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 3; i++)
     {
         drawCard(player, state);
     }
@@ -1261,8 +1261,11 @@ int seaHagCard(int player, struct gameState * state)
 {
     for (int i = 0; i < state->numPlayers; i++){
         if (i != player){
-            state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];                state->deckCount[i]--;
+            state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];
+            state->deckCount[i]--;
             state->discardCount[i]++;
+            state->deck[i][state->deckCount[i]--] = curse;
+            //printf("In sea hag: %i", state->deck[i][state->deckCount[i]--]);
             }
     }
     return 0;
@@ -1270,6 +1273,7 @@ int seaHagCard(int player, struct gameState * state)
 
 int cutpurseCard(int player, struct gameState * state, int handPos)
 {
+    updateCoins(player, state, 2);
     for (int i = 0; i < state->numPlayers; i++)
     {
         if (i != player)
