@@ -1,1 +1,1 @@
-This is my Random Testing Quiz submission!
+This is my Random Testing submission!
