@@ -14,17 +14,26 @@ adventurer: domAssert.o
 runAdventurer: adventurer
 	rm randomtestadventurer.out
 	./randomtestadventurer >> randomtestadventurer.out 2>&1
-	gcov dominion.c >> randomtestadventurer.out 2>&1
+	gcov dominion.c -b >> randomtestadventurer.out 2>&1
 	cat dominion.c.gcov >> randomtestadventurer.out 2>&1
 
-randomcard: domAssert.o
-	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c randomtestcard.c rngs.c domAssert.o -o randomtestcard -lm -g
+randomcard1: domAssert.o
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c randomtestcard1.c rngs.c interface.c domAssert.o -o randomtestcard1 -lm -g
 
-runRandomCard: randomcard
-	rm randomtestcard.out
-	./randomtestcard >> randomtestcard.out 2>&1
-	gcov dominion.c >> randomtestcard.out 2>&1
-	cat dominion.c.gcov >> randomtestcard.out 2>&1
+runRandomCard1: randomcard1
+	rm randomtestcard1.out
+	./randomtestcard1 >> randomtestcard1.out 2>&1
+	gcov dominion.c -b >> randomtestcard1.out 2>&1
+	cat dominion.c.gcov >> randomtestcard1.out 2>&1
+
+randomcard2: domAssert.o
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c randomtestcard2.c rngs.c interface.c domAssert.o -o randomtestcard2 -lm -g
+
+runRandomCard2: randomcard2
+	rm randomtestcard2.out
+	./randomtestcard2 >> randomtestcard2.out 2>&1
+	gcov dominion.c -b >> randomtestcard2.out 2>&1
+	cat dominion.c.gcov >> randomtestcard2.out 2>&1
 
 testdom: domAssert.o
 	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c testdominion.c rngs.c domAssert.o -o testdom -lm -g
@@ -112,4 +121,4 @@ player: player.c interface.o
 all: playdom player testDrawCard testBuyCard badTestDrawCard unit1 unit2 unit3 unit4 card1 card2 card3 card4
 
 clean:
-	rm -rf *.o *.dSYM testdom playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe testInit testInit.exe badTestDrawCard testDrawCard randomtestadventurer randomtestcard *.gcov *.gcda *.gcno *.so
+	rm -rf *.o *.dSYM testdom playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe testInit testInit.exe badTestDrawCard testDrawCard randomtestadventurer randomtestcard1 randomtestcard2 *.gcov *.gcda *.gcno *.so
